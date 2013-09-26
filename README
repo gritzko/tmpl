@@ -1,1 +1,3 @@
 Javascript template engine, variant of John Resig's micro templating (http://ejohn.org/blog/javascript-micro-templating/)
+
+http://jsperf.com/js-template-engines-performance/14
