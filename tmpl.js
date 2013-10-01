@@ -2,6 +2,10 @@
  * Autor: Evstigneev Andrey
  * Date: 26.09.13
  * Time: 16:14
+ *
+ * function tmpl
+ * originally written by John Resig (http://ejohn.org/blog/javascript-micro-templating/ - MIT Licensed)
+ * and modified by me
  */
 
 (function(global){
@@ -19,4 +23,8 @@
             + "';return s;");
     };
 
+
 }(this));
+
+
+
