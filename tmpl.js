@@ -12,17 +12,21 @@
 
     'use strict';
 
-    global.tmpl = function(str){
-        return new Function("data", "var s='" +
-            str.replace(/[\r\t\n]/g, " ")
-               .replace(/'/g, "\\'")
-               .replace(/<#(.+?)#>/g, function(all, g1){
-                   var s = g1.replace(/\\'/g, "'");
-                   return s.charAt(0) === '=' ? ("'+" + s.slice(1) + "+'") : ("';" + s + "s+='");
-               })
-            + "';return s;");
-    };
+    global.tmpl = (function(){
+        var SPACE_RE = /[\r\t\n]/g,
+            QUOTE_RE = /'/g,
+            ESC_QUOTE_RE = /\\'/g,
+            PROC_RE = /<#(.+?)#>/g,
+            proc = function(all, g1){
+               var s = g1.replace(ESC_QUOTE_RE, "'");
+               return s.charAt(0) === '=' ? ("'+" + s.slice(1) + "+'") : ("';" + s + "s+='");
+           };
 
+        return function(str){
+            return new Function("data", "var s='" +
+                str.replace(SPACE_RE, " ").replace(QUOTE_RE, "\\'").replace(PROC_RE, proc) + "';return s;");
+        }
+    }());
 
 }(this));
 
