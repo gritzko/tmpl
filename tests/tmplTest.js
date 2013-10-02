@@ -84,6 +84,18 @@
         testEmptyInBrackets : function(){
             var t = "<# #>";
             assertEquals(global.tmpl(t)(), '');
+        },
+
+        testChangeProcRe : function(){
+            var t = "<div>" +
+               "<span>{{= data.a }}-{{= data['a'] }}</span>" +
+               "</div>",
+               prevProcRe = global.tmpl.PROC_RE;
+
+            global.tmpl.PROC_RE = /\{{2}(.+?)\}{2}/g
+            assertEquals(global.tmpl(t)({a : 'test'}), '<div><span>test-test</span></div>');
+
+            global.tmpl.PROC_RE = prevProcRe;
         }
 
     });

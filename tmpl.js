@@ -16,16 +16,19 @@
         var SPACE_RE = /[\r\t\n]/g,
             QUOTE_RE = /'/g,
             ESC_QUOTE_RE = /\\'/g,
-            PROC_RE = /<#(.+?)#>/g,
             proc = function(all, g1){
-               var s = g1.replace(ESC_QUOTE_RE, "'");
-               return s.charAt(0) === '=' ? ("'+" + s.slice(1) + "+'") : ("';" + s + "s+='");
-           };
+                var s = g1.replace(ESC_QUOTE_RE, "'");
+                return s.charAt(0) === '=' ? ("'+" + s.slice(1) + "+'") : ("';" + s + "s+='");
+            };
 
-        return function(str){
+        function tmpl(str){
             return new Function("data", "var s='" +
-                str.replace(SPACE_RE, " ").replace(QUOTE_RE, "\\'").replace(PROC_RE, proc) + "';return s;");
+                str.replace(SPACE_RE, " ").replace(QUOTE_RE, "\\'").replace(tmpl.PROC_RE, proc) + "';return s;");
         }
+
+        tmpl.PROC_RE = /<#(.+?)#>/g;
+
+        return tmpl;
     }());
 
 }(this));
