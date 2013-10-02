@@ -90,12 +90,12 @@
             var t = "<div>" +
                "<span>{{= data.a }}-{{= data['a'] }}</span>" +
                "</div>",
-               prevProcRe = global.tmpl.PROC_RE;
+               prevProcRe = global.tmpl.procRe;
 
-            global.tmpl.PROC_RE = /\{{2}(.+?)\}{2}/g
+            global.tmpl.procRe = /\{{2}(.+?)\}{2}/g
             assertEquals(global.tmpl(t)({a : 'test'}), '<div><span>test-test</span></div>');
 
-            global.tmpl.PROC_RE = prevProcRe;
+            global.tmpl.procRe = prevProcRe;
         }
 
     });

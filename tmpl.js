@@ -23,10 +23,10 @@
 
         function tmpl(str){
             return new Function("data", "var s='" +
-                str.replace(SPACE_RE, " ").replace(QUOTE_RE, "\\'").replace(tmpl.PROC_RE, proc) + "';return s;");
+                str.replace(SPACE_RE, " ").replace(QUOTE_RE, "\\'").replace(tmpl.procRe, proc) + "';return s;");
         }
 
-        tmpl.PROC_RE = /<#(.+?)#>/g;
+        tmpl.procRe = /<#(.+?)#>/g;
 
         return tmpl;
     }());
