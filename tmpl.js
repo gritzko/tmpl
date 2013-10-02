@@ -8,30 +8,27 @@
  * and modified by me
  */
 
-(function(global){
+this.tmpl = (function(){
 
     'use strict';
 
-    global.tmpl = (function(){
-        var SPACE_RE = /[\r\t\n]/g,
-            QUOTE_RE = /'/g,
-            ESC_QUOTE_RE = /\\'/g,
-            proc = function(all, g1){
-                var s = g1.replace(ESC_QUOTE_RE, "'");
-                return s.charAt(0) === '=' ? ("'+" + s.slice(1) + "+'") : ("';" + s + "s+='");
-            };
+    var SPACE_RE = /[\r\t\n]/g,
+        QUOTE_RE = /'/g,
+        ESC_QUOTE_RE = /\\'/g,
+        proc = function(all, g1){
+            var s = g1.replace(ESC_QUOTE_RE, "'");
+            return s.charAt(0) === '=' ? ("'+" + s.slice(1) + "+'") : ("';" + s + "s+='");
+        };
 
-        function tmpl(str){
-            return new Function("data", "var s='" +
-                str.replace(SPACE_RE, " ").replace(QUOTE_RE, "\\'").replace(tmpl.procRe, proc) + "';return s;");
-        }
+    function tmpl(str){
+        return new Function("data", "var s='" +
+            str.replace(SPACE_RE, " ").replace(QUOTE_RE, "\\'").replace(tmpl.procRe, proc) + "';return s;");
+    }
 
-        tmpl.procRe = /<#(.+?)#>/g;
+    tmpl.procRe = /<#(.+?)#>/g;
 
-        return tmpl;
-    }());
-
-}(this));
+    return tmpl;
+}());
 
 
 
