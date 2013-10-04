@@ -26,6 +26,7 @@ this.tmpl = (function(){
     }
 
     tmpl.procRe = /<#(.+?)#>/g;
+    tmpl.exts = {};
 
     return tmpl;
 }());
