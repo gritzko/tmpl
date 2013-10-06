@@ -1,7 +1,5 @@
 load:
   - ../tmpl.js
-  - ../extensions/escapeHTML.js
 
 test:
   - tmplTest.js
-  - extensions/*
